@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "ts-node-dev src/index.ts",
     "start": "node build/index.js",
-    "tsc": "tsc"
+    "build": "tsc"
   },
   "author": "whoIsBeto",
   "license": "ISC",
