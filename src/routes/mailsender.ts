@@ -1,12 +1,13 @@
 import { Router } from "express";
 import { transporter } from "../config/mailer";
+import { environment } from "../envs";
 
 const router = Router();
 router.post("/", async (req, res): Promise<void> => {
   const { name, email, message, subject } = req.body;
   await transporter.sendMail({
     from: email, // sender address
-    to: "whoisbeto@gmail.com", // list of receivers
+    to: environment.whoIsBetoMail, // list of receivers
     subject, // Subject line
     text: message, // plain text body
     html: `

@@ -2,8 +2,7 @@ import express from "express";
 import path from "path";
 import diaryRouter from "./routes/mailsender";
 import cors from "cors";
-
-const allowedOrigins = ["https://whoisbeto.dev"];
+import { environment } from "./envs";
 
 const app = express();
 app.use(express.json());
@@ -11,7 +10,7 @@ app.use(
   cors({
     origin: (origin, callback) => {
       if (!origin) return callback(null, true);
-      if (allowedOrigins.indexOf(origin) === -1) {
+      if (environment.aviableDomains.indexOf(origin) === -1) {
         var msg =
           "The CORS policy for this site does not " + "allow access from the specified Origin.";
         return callback(new Error(msg), false);
@@ -22,7 +21,7 @@ app.use(
 );
 app.use(express.static(path.join(__dirname, "public")));
 
-const port = 3001;
+const port = environment.port;
 app.get("/ping", (_, res): void => {
   res.send("pong");
 });

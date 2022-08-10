@@ -1,14 +1,15 @@
 import nodemailer from "nodemailer";
+import { environment } from "../envs";
 
 // create reusable transporter object using the default SMTP transport
 
 export const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
+  host: environment.mailHost,
+  port: environment.mailPort,
   secure: true, // true for 465, false for other ports
   auth: {
-    user: "whoisbeto@gmail.com", // generated ethereal user
-    pass: "vramqpzfldkekuso" // generated ethereal password
+    user: environment.mailUser, // generated ethereal user
+    pass: environment.mailPass // generated ethereal password
   }
 });
 
