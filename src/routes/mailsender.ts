@@ -4,32 +4,34 @@ import { environment } from "../envs";
 
 const router = Router();
 router.post("/", async (req, res): Promise<void> => {
-  const { name, email, message, subject } = req.body;
-  await transporter.sendMail({
-    from: email, // sender address
-    to: environment.whoIsBetoMail, // list of receivers
-    subject, // Subject line
-    text: message, // plain text body
-    html: `
-    <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-    <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
-    <head>
-    <!--[if gte mso 9]>
-    <xml>
+  try {
+    const { name, email, message, subject } = req.body;
+    await transporter.sendMail({
+      from: email, // sender address
+      to: environment.whoIsBetoMail, // list of receivers
+      subject, // Subject line
+      text: message, // plain text body
+      html: `
+      <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional //EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+      <html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+      <head>
+      <!--[if gte mso 9]>
+      <xml>
       <o:OfficeDocumentSettings>
-        <o:AllowPNG/>
-        <o:PixelsPerInch>96</o:PixelsPerInch>
+      <o:AllowPNG/>
+      <o:PixelsPerInch>96</o:PixelsPerInch>
       </o:OfficeDocumentSettings>
-    </xml>
-    <![endif]-->
+      </xml>
+      <![endif]-->
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="x-apple-disable-message-reformatting">
       <!--[if !mso]><!--><meta http-equiv="X-UA-Compatible" content="IE=edge"><!--<![endif]-->
       <title></title>
-
-        <style type="text/css">
-          @media only screen and (min-width: 620px) {
+      
+      <style type="text/css">
+      @media only screen and (min-width: 620px) {
+          
       .u-row {
         width: 600px !important;
       }
@@ -288,8 +290,11 @@ router.post("/", async (req, res): Promise<void> => {
     </html>
 
     ` // html body
-  });
-  res.status(201).json({ message: "Everything went right!" });
+    });
+    res.status(201).json({ message: "Everything went right!" });
+  } catch (error) {
+    res.status(500).json({ message: JSON.stringify(error) });
+  }
 });
 
 export default router;
