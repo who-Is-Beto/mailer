@@ -5,7 +5,7 @@ const localhost = process.env.LOCAL_DEVELOPMENT;
 export const environment = {
   aviableDomains: [whoisbeto, whoisbetoVercel, localhost] as string[],
   localhost: process.env.LOCAL_DEVELOPMENT,
-  port: process.env.PORT || 3000,
+  port: process.env.PORT || 3001,
   whoIsBetoMail: process.env.WHO_IS_BETO_MAIL,
   mailHost: process.env.MAIL_HOST,
   mailPort: Number(process.env.MAIL_PORT) || 465,

@@ -1,4 +1,5 @@
 import express from "express";
+import "dotenv/config";
 import path from "path";
 import diaryRouter from "./routes/mailsender";
 import cors from "cors";
@@ -22,6 +23,7 @@ app.use(
 app.use(express.static(path.join(__dirname, "public")));
 
 const port = environment.port;
+console.log(environment);
 app.get("/ping", (_, res): void => {
   res.send("pong");
 });
