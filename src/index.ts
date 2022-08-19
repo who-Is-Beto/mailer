@@ -7,11 +7,14 @@ import { environment } from "./envs";
 
 const app = express();
 app.use(express.json());
-app.use(cors());
+app.use(
+  cors({
+    origin: environment.aviableDomains.map((domain) => domain)
+  })
+);
 app.use(express.static(path.join(__dirname, "public")));
 
 const port = environment.port;
-console.log(environment);
 app.get("/ping", (_, res): void => {
   res.send("pong");
 });
